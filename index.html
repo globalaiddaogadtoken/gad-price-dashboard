@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>GAD Token - Live Price Dashboard</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js">
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #E8EDF5;
+            direction: ltr;
+            background: #060E1A;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .bubbles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bubble {
+            position: absolute;
+            bottom: -100px;
+            border-radius: 50%;
+            opacity: 0.06;
+            animation: floatUp linear infinite;
+        }
+
+        .bubble:nth-child(1) {
+            width: 120px;
+            height: 120px;
+            left: 5%;
+            background: radial-gradient(circle at 30% 30%, #FFD54F, #FFB300);
+            animation-duration: 22s;
+        }
+        .bubble:nth-child(2) {
+            width: 180px;
+            height: 180px;
+            left: 18%;
+            background: radial-gradient(circle at 30% 30%, #81D4FA, #29B6F6);
+            animation-duration: 28s;
+            animation-delay: 2s;
+        }
+        .bubble:nth-child(3) {
+            width: 90px;
+            height: 90px;
+            left: 35%;
+            background: radial-gradient(circle at 30% 30%, #A5D6A7, #66BB6A);
+            animation-duration: 18s;
+            animation-delay: 4s;
+        }
+        .bubble:nth-child(4) {
+            width: 200px;
+            height: 200px;
+            left: 50%;
+            background: radial-gradient(circle at 30% 30%, #CE93D8, #AB47BC);
+            animation-duration: 30s;
+            animation-delay: 1s;
+        }
+        .bubble:nth-child(5) {
+            width: 100px;
+            height: 100px;
+            left: 68%;
+            background: radial-gradient(circle at 30% 30%, #FFD54F, #FFB300);
+            animation-duration: 20s;
+            animation-delay: 3s;
+        }
+        .bubble:nth-child(6) {
+            width: 140px;
+            height: 140px;
+            left: 82%;
+            background: radial-gradient(circle at 30% 30%, #F48FB1, #EC407A);
+            animation-duration: 24s;
+            animation-delay: 5s;
+        }
+        .bubble:nth-child(7) {
+            width: 70px;
+            height: 70px;
+            left: 10%;
+            background: radial-gradient(circle at 30% 30%, #80DEEA, #00BCD4);
+            animation-duration: 16s;
+            animation-delay: 6s;
+        }
+        .bubble:nth-child(8) {
+            width: 160px;
+            height: 160px;
+            left: 42%;
+            background: radial-gradient(circle at 30% 30%, #A5D6A7, #66BB6A);
+            animation-duration: 26s;
+            animation-delay: 2.5s;
+        }
+        .bubble:nth-child(9) {
+            width: 85px;
+            height: 85px;
+            left: 75%;
+            background: radial-gradient(circle at 30% 30%, #81D4FA, #29B6F6);
+            animation-duration: 19s;
+            animation-delay: 4.5s;
+        }
+        .bubble:nth-child(10) {
+            width: 130px;
+            height: 130px;
+            left: 28%;
+            background: radial-gradient(circle at 30% 30%, #F48FB1, #EC407A);
+            animation-duration: 23s;
+            animation-delay: 3.5s;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) scale(1) rotate(0deg);
+                opacity: 0.04;
+            }
+            50% {
+                opacity: 0.12;
+            }
+            100% {
+                transform: translateY(-120vh) scale(1.3) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            max-width: 880px;
+            width: 100%;
+            background: rgba(6, 14, 26, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 40px;
+            padding: 32px 28px 36px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+            animation: floatIn 0.7s ease-out;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes floatIn {
+            0% {
+                opacity: 0;
+                transform: translateY(40px) scale(0.96);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            font-size: 32px;
+            color: #FFB300;
+            animation: glowGold 3s ease-in-out infinite;
+        }
+
+        @keyframes glowGold {
+            0%,
+            100% {
+                text-shadow: 0 0 20px rgba(255, 179, 0, 0.15);
+            }
+            50% {
+                text-shadow: 0 0 50px rgba(255, 179, 0, 0.35);
+            }
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 800;
+            color: #FFB300;
+            letter-spacing: 1px;
+        }
+
+        .logo-text small {
+            font-size: 14px;
+            font-weight: 400;
+            color: #4A9EFF;
+            letter-spacing: 2px;
+        }
+
+        .trade-link {
+            background: rgba(255, 179, 0, 0.08);
+            border: 1px solid rgba(255, 179, 0, 0.12);
+            border-radius: 40px;
+            padding: 6px 16px;
+            font-size: 12px;
+            color: #FFB300;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+        }
+
+        .trade-link:hover {
+            background: rgba(255, 179, 0, 0.16);
+            box-shadow: 0 0 20px rgba(255, 179, 0, 0.08);
+            transform: scale(1.03);
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, #FFB300, #4A9EFF, transparent);
+            margin: 4px 0 20px 0;
+            border-radius: 4px;
+            opacity: 0.2;
+        }
+
+        .price-section {
+            text-align: center;
+            padding: 24px 0 18px 0;
+            background: rgba(255, 179, 0, 0.03);
+            border-radius: 28px;
+            border: 1px solid rgba(255, 179, 0, 0.05);
+            margin-bottom: 20px;
+        }
+
+        .price-label {
+            font-size: 14px;
+            color: #6A7A9A;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 300;
+        }
+
+        .price-value {
+            font-size: 64px;
+            font-weight: 900;
+            color: #FFFFFF;
+            line-height: 1.2;
+            margin-top: 4px;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            text-shadow: 0 2px 40px rgba(255, 179, 0, 0.1);
+        }
+
+        .price-value .dollar {
+            font-size: 40px;
+            color: #6A7A9A;
+            font-weight: 300;
+        }
+
+        .price-value .cents {
+            font-size: 32px;
+            color: #6A7A9A;
+            font-weight: 300;
+        }
+
+        .price-change {
+            display: inline-block;
+            padding: 4px 16px;
+            border-radius: 40px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 6px;
+        }
+
+        .price-change.positive {
+            color: #4CAF50;
+            background: rgba(76, 175, 80, 0.1);
+        }
+
+        .price-change.negative {
+            color: #f44336;
+            background: rgba(244, 67, 54, 0.1);
+        }
+
+        .price-update-time {
+            font-size: 11px;
+            color: #4A5A7A;
+            margin-top: 6px;
+            letter-spacing: 1px;
+        }
+
+        /* ===== GROWTH METRICS ===== */
+        .growth-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .growth-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 16px;
+            padding: 12px 10px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .growth-card:hover {
+            border-color: rgba(255, 179, 0, 0.08);
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .growth-card .period {
+            font-size: 11px;
+            color: #6A7A9A;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .growth-card .value {
+            font-size: 20px;
+            font-weight: 700;
+            margin-top: 4px;
+        }
+
+        .growth-card .value.positive {
+            color: #4CAF50;
+        }
+        .growth-card .value.negative {
+            color: #f44336;
+        }
+        .growth-card .value.neutral {
+            color: #FFB300;
+        }
+
+        /* ===== STATS ===== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 20px;
+            padding: 16px 14px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            border-color: rgba(255, 179, 0, 0.08);
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .stat-card .icon {
+            font-size: 20px;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .stat-card .value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #FFFFFF;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+        }
+
+        .stat-card .value.gold {
+            color: #FFB300;
+        }
+        .stat-card .value.blue {
+            color: #4A9EFF;
+        }
+        .stat-card .value.green {
+            color: #4CAF50;
+        }
+        .stat-card .value.pink {
+            color: #EC407A;
+        }
+
+        .stat-card .label {
+            font-size: 11px;
+            color: #6A7A9A;
+            letter-spacing: 1px;
+            margin-top: 4px;
+            font-weight: 400;
+        }
+
+        .chart-container {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 24px;
+            padding: 16px;
+            margin-bottom: 16px;
+            position: relative;
+        }
+
+        .chart-container canvas {
+            width: 100% !important;
+            height: 300px !important;
+        }
+
+        .chart-title {
+            font-size: 12px;
+            color: #4A5A7A;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chart-title .badge {
+            background: rgba(255, 179, 0, 0.08);
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 10px;
+            color: #FFB300;
+            letter-spacing: 0.5px;
+        }
+
+        .btn {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 40px;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            touch-action: manipulation;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, #FFD54F, #FFB300);
+            color: #0A1628;
+            box-shadow: 0 4px 20px rgba(255, 179, 0, 0.15);
+        }
+
+        .btn-gold:hover {
+            box-shadow: 0 8px 35px rgba(255, 179, 0, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid rgba(255, 255, 255, 0.06);
+            color: #B0C4DE;
+        }
+
+        .btn-outline:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+            color: #FFFFFF;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+            justify-content: center;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(6, 14, 26, 0.95);
+            backdrop-filter: blur(12px);
+            color: #E8EDF5;
+            padding: 14px 28px;
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            font-size: 14px;
+            z-index: 999;
+            max-width: 90%;
+            text-align: center;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6);
+            transition: all 0.4s ease;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            font-weight: 500;
+        }
+
+        .toast.success {
+            border-color: #4CAF50;
+        }
+        .toast.error {
+            border-color: #f44336;
+        }
+        .toast.info {
+            border-color: #4A9EFF;
+        }
+        .toast.hidden {
+            opacity: 0;
+            transform: translateX(-50%) translateY(30px);
+            pointer-events: none;
+        }
+
+        .status-msg {
+            text-align: center;
+            font-size: 12px;
+            color: #4A5A7A;
+            padding: 4px 0 8px 0;
+            letter-spacing: 0.5px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px 16px 24px;
+                border-radius: 32px;
+            }
+            .logo-text {
+                font-size: 18px;
+            }
+            .price-value {
+                font-size: 40px;
+            }
+            .price-value .dollar {
+                font-size: 28px;
+            }
+            .price-value .cents {
+                font-size: 22px;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+            .stat-card {
+                padding: 12px 10px;
+            }
+            .stat-card .value {
+                font-size: 16px;
+            }
+            .growth-grid {
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 6px;
+            }
+            .growth-card .value {
+                font-size: 16px;
+            }
+            .chart-container canvas {
+                height: 200px !important;
+            }
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .price-section {
+                padding: 16px 12px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 6px;
+            }
+            .stat-card .value {
+                font-size: 14px;
+            }
+            .growth-grid {
+                grid-template-columns: 1fr;
+            }
+            .price-value {
+                font-size: 32px;
+            }
+            .price-value .dollar {
+                font-size: 22px;
+            }
+            .price-value .cents {
+                font-size: 18px;
+            }
+            .btn-group {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="bubbles">
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+    </div>
+
+    <div id="toast" class="toast hidden"></div>
+
+    <div class="container">
+
+        <!-- HEADER -->
+        <div class="header">
+            <div class="logo-section">
+                <span class="logo-icon">✦</span>
+                <span class="logo-text">GAD <small>TOKEN</small></span>
+            </div>
+            <a href="https://gad-token-trade-EN.vercel.app" target="_blank" class="trade-link">
+                🪙 Trade Now →
+            </a>
+        </div>
+        <div class="divider"></div>
+
+        <!-- PRICE SECTION -->
+        <div class="price-section">
+            <div class="price-label">✦ GAD / USDT ✦</div>
+            <div class="price-value" id="priceDisplay">
+                <span class="dollar">$</span><span id="priceValue">--</span><span class="cents" id="priceCents">.----</span>
+            </div>
+            <div id="priceChange" class="price-change">--</div>
+            <div class="price-update-time" id="updateTime">⏳ Loading data...</div>
+        </div>
+
+        <!-- GROWTH METRICS -->
+        <div class="growth-grid">
+            <div class="growth-card">
+                <div class="period">📈 30 Days</div>
+                <div class="value" id="growth30">--</div>
+            </div>
+            <div class="growth-card">
+                <div class="period">📈 90 Days</div>
+                <div class="value" id="growth90">--</div>
+            </div>
+            <div class="growth-card">
+                <div class="period">📈 180 Days</div>
+                <div class="value" id="growth180">--</div>
+            </div>
+        </div>
+
+        <!-- STATS GRID -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="icon">👥</span>
+                <div class="value gold" id="holderCount">--</div>
+                <div class="label">Holders</div>
+            </div>
+            <div class="stat-card">
+                <span class="icon">🔄</span>
+                <div class="value blue" id="circulatingSupply">--</div>
+                <div class="label">In Circulation</div>
+            </div>
+            <div class="stat-card">
+                <span class="icon">📈</span>
+                <div class="value green" id="marketCap">--</div>
+                <div class="label">Market Cap</div>
+            </div>
+            <div class="stat-card">
+                <span class="icon">💰</span>
+                <div class="value pink" id="totalSupply">--</div>
+                <div class="label">Total Supply</div>
+            </div>
+        </div>
+
+        <!-- CHART -->
+        <div class="chart-container">
+            <div class="chart-title">
+                <span>📊 Price History <span id="dataRange">(Loading...)</span></span>
+                <span class="badge" id="dataStatus">Loading</span>
+            </div>
+            <canvas id="priceChart"></canvas>
+        </div>
+
+        <!-- BUTTONS -->
+        <div class="btn-group">
+            <button id="btnRefresh" class="btn btn-gold">🔄 Refresh</button>
+            <button id="btnFetchLive" class="btn btn-outline">📡 Fetch Live Price</button>
+        </div>
+
+        <div class="status-msg" id="statusMsg">📊 Data loaded from server | Daily updates via GitHub Actions</div>
+
+    </div>
+
+    <!-- ================================================================
+    JAVASCRIPT
+    ================================================================ -->
+    <script>
+        // ============================================================
+        // CONFIGURATION
+        // ============================================================
+        const CONFIG = {
+            GAD_TOKEN_ADDRESS: '0x3A2F29a2B8D38EcF1E3CF72f698C570594e6628c',
+            RPC_URL: 'https://bsc-dataseed.binance.org/',
+            DECIMALS: 18,
+            EXPLORER_URL: 'https://bscscan.com',
+            DATA_URL: 'data/price-history.json'
+        };
+
+        // ============================================================
+        // ABI
+        // ============================================================
+        const GAD_ABI = [
+            'function price() view returns (uint256)',
+            'function holderCount() view returns (uint256)',
+            'function getTotalGADSupply() view returns (uint256)',
+            'function getMarketCap() view returns (uint256)',
+            'function getCirculatingSupply() view returns (uint256)'
+        ];
+
+        // ============================================================
+        // STATE
+        // ============================================================
+        let priceHistory = [];
+        let chart = null;
+        let currentPrice = 0;
+
+        // ============================================================
+        // DOM REFS
+        // ============================================================
+        const $ = id => document.getElementById(id);
+        const priceValue = $('priceValue');
+        const priceCents = $('priceCents');
+        const priceChange = $('priceChange');
+        const updateTime = $('updateTime');
+        const holderCount = $('holderCount');
+        const circulatingSupply = $('circulatingSupply');
+        const marketCap = $('marketCap');
+        const totalSupply = $('totalSupply');
+        const toast = $('toast');
+        const statusMsg = $('statusMsg');
+        const dataStatus = $('dataStatus');
+        const dataRange = $('dataRange');
+        const growth30 = $('growth30');
+        const growth90 = $('growth90');
+        const growth180 = $('growth180');
+
+        // ============================================================
+        // TOAST
+        // ============================================================
+        let toastTimer = null;
+
+        function showToast(msg, type = 'info', duration = 4000) {
+            toast.textContent = msg;
+            toast.className = `toast ${type}`;
+            toast.classList.remove('hidden');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => {
+                toast.classList.add('hidden');
+            }, duration);
+        }
+
+        // ============================================================
+        // FETCH DATA FROM GITHUB
+        // ============================================================
+        async function fetchDataFromServer() {
+            try {
+                const response = await fetch(CONFIG.DATA_URL + '?t=' + Date.now());
+                if (!response.ok) throw new Error('Failed to fetch data');
+                const data = await response.json();
+                return data;
+            } catch (err) {
+                console.warn('Server fetch error:', err.message);
+                return null;
+            }
+        }
+
+        // ============================================================
+        // FETCH LIVE PRICE FROM BLOCKCHAIN
+        // ============================================================
+        async function fetchLivePrice() {
+            try {
+                const provider = new ethers.JsonRpcProvider(CONFIG.RPC_URL);
+                const contract = new ethers.Contract(CONFIG.GAD_TOKEN_ADDRESS, GAD_ABI, provider);
+                const price = await contract.price();
+                return parseFloat(ethers.formatUnits(price, CONFIG.DECIMALS));
+            } catch (err) {
+                console.warn('Live price fetch error:', err.message);
+                return null;
+            }
+        }
+
+        async function fetchLiveStats() {
+            try {
+                const provider = new ethers.JsonRpcProvider(CONFIG.RPC_URL);
+                const contract = new ethers.Contract(CONFIG.GAD_TOKEN_ADDRESS, GAD_ABI, provider);
+
+                try {
+                    const holders = await contract.holderCount();
+                    holderCount.textContent = formatNumber(holders.toString());
+                } catch (e) { holderCount.textContent = '--'; }
+
+                try {
+                    const supply = await contract.getTotalGADSupply();
+                    totalSupply.textContent = formatNumber(ethers.formatUnits(supply, 18));
+                } catch (e) { totalSupply.textContent = '--'; }
+
+                try {
+                    const cap = await contract.getMarketCap();
+                    marketCap.textContent = formatNumber(ethers.formatUnits(cap, 18));
+                } catch (e) { marketCap.textContent = '--'; }
+
+                try {
+                    const circ = await contract.getCirculatingSupply();
+                    circulatingSupply.textContent = formatNumber(ethers.formatUnits(circ, 18));
+                } catch (e) { circulatingSupply.textContent = '--'; }
+
+                return true;
+            } catch (err) {
+                console.warn('Stats fetch error:', err.message);
+                return false;
+            }
+        }
+
+        // ============================================================
+        // UPDATE PRICE DISPLAY
+        // ============================================================
+        function updatePriceDisplay(price) {
+            if (price === null || price === undefined) return;
+            currentPrice = price;
+
+            const parts = price.toFixed(10).split('.');
+            priceValue.textContent = parts[0];
+            priceCents.textContent = '.' + (parts[1] || '0000').padEnd(4, '0').slice(0, 4);
+        }
+
+        function updateGrowthMetrics(data) {
+            if (!data || data.length < 2) {
+                growth30.textContent = '--';
+                growth90.textContent = '--';
+                growth180.textContent = '--';
+                return;
+            }
+
+            const today = data[data.length - 1].price;
+            const todayDate = new Date(data[data.length - 1].date);
+
+            // 30 روز قبل
+            const date30 = new Date(todayDate);
+            date30.setDate(date30.getDate() - 30);
+            let price30 = null;
+            for (let i = data.length - 1; i >= 0; i--) {
+                const d = new Date(data[i].date);
+                if (d <= date30) { price30 = data[i].price; break; }
+            }
+            if (!price30 && data.length > 0) price30 = data[0].price;
+
+            // 90 روز قبل
+            const date90 = new Date(todayDate);
+            date90.setDate(date90.getDate() - 90);
+            let price90 = null;
+            for (let i = data.length - 1; i >= 0; i--) {
+                const d = new Date(data[i].date);
+                if (d <= date90) { price90 = data[i].price; break; }
+            }
+            if (!price90 && data.length > 0) price90 = data[0].price;
+
+            // 180 روز قبل
+            const date180 = new Date(todayDate);
+            date180.setDate(date180.getDate() - 180);
+            let price180 = null;
+            for (let i = data.length - 1; i >= 0; i--) {
+                const d = new Date(data[i].date);
+                if (d <= date180) { price180 = data[i].price; break; }
+            }
+            if (!price180 && data.length > 0) price180 = data[0].price;
+
+            growth30.textContent = formatPercent(price30, today);
+            growth90.textContent = formatPercent(price90, today);
+            growth180.textContent = formatPercent(price180, today);
+        }
+
+        function formatPercent(oldPrice, newPrice) {
+            if (!oldPrice || oldPrice === 0) return '--';
+            const change = ((newPrice - oldPrice) / oldPrice) * 100;
+            const sign = change >= 0 ? '+' : '';
+            const color = change > 0 ? 'positive' : (change < 0 ? 'negative' : 'neutral');
+            return `<span class="${color}">${sign}${change.toFixed(2)}%</span>`;
+        }
+
+        function formatNumber(num) {
+            if (!num) return '--';
+            const n = parseFloat(num);
+            if (isNaN(n)) return '--';
+            if (n >= 1e9) return (n / 1e9).toFixed(2) + 'B';
+            if (n >= 1e6) return (n / 1e6).toFixed(2) + 'M';
+            if (n >= 1e3) return (n / 1e3).toFixed(2) + 'K';
+            return n.toFixed(2);
+        }
+
+        // ============================================================
+        // CHART
+        // ============================================================
+        function initChart(data) {
+            const ctx = document.getElementById('priceChart').getContext('2d');
+
+            const chartData = {
+                labels: data.map(p => p.date),
+                datasets: [{
+                    label: 'GAD Price (USDT)',
+                    data: data.map(p => p.price),
+                    borderColor: '#FFB300',
+                    backgroundColor: 'rgba(255, 179, 0, 0.04)',
+                    borderWidth: 2.5,
+                    pointBackgroundColor: '#FFB300',
+                    pointRadius: data.length > 100 ? 0.5 : 1.5,
+                    pointHoverRadius: 5,
+                    fill: true,
+                    tension: 0.3
+                }]
+            };
+
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: chartData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#6A7A9A',
+                                font: { size: 12, family: 'Segoe UI' }
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(6,14,26,0.92)',
+                            titleColor: '#E8EDF5',
+                            bodyColor: '#FFB300',
+                            borderColor: 'rgba(255,179,0,0.15)',
+                            borderWidth: 1,
+                            cornerRadius: 12,
+                            padding: 12,
+                            callbacks: {
+                                label: function(context) {
+                                    return `$${context.parsed.y.toFixed(6)} USDT`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                color: 'rgba(255,255,255,0.02)',
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: '#4A5A7A',
+                                font: { size: 9, family: 'Segoe UI' },
+                                maxTicksLimit: data.length > 180 ? 20 : 15,
+                                maxRotation: 45
+                            }
+                        },
+                        y: {
+                            grid: {
+                                color: 'rgba(255,255,255,0.02)',
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: '#4A5A7A',
+                                font: { size: 10, family: 'Segoe UI' },
+                                callback: function(value) {
+                                    return '$' + value.toFixed(4);
+                                }
+                            }
+                        }
+                    },
+                    interaction: {
+                        intersect: false,
+                        mode: 'index'
+                    }
+                }
+            });
+        }
+
+        function updateChart(data) {
+            if (!chart) return;
+
+            chart.data.labels = data.map(p => p.date);
+            chart.data.datasets[0].data = data.map(p => p.price);
+            chart.update('none');
+        }
+
+        // ============================================================
+        // MAIN LOAD
+        // ============================================================
+        async function loadDashboard() {
+            statusMsg.textContent = '⏳ Loading data from server...';
+            dataStatus.textContent = 'Loading';
+
+            // 1. Fetch data from GitHub
+            const data = await fetchDataFromServer();
+
+            if (data && data.length > 0) {
+                priceHistory = data;
+                const lastPrice = data[data.length - 1].price;
+                updatePriceDisplay(lastPrice);
+
+                // Update time
+                const lastDate = new Date(data[data.length - 1].date);
+                updateTime.textContent = `📅 Last update: ${lastDate.toLocaleDateString()}`;
+
+                // Update data range
+                const firstDate = new Date(data[0].date);
+                dataRange.textContent = `(${firstDate.toLocaleDateString()} - ${lastDate.toLocaleDateString()})`;
+
+                // Update growth metrics
+                updateGrowthMetrics(data);
+
+                // Update chart
+                if (chart) {
+                    updateChart(data);
+                } else {
+                    initChart(data);
+                }
+
+                dataStatus.textContent = `${data.length} days`;
+                statusMsg.textContent = `✅ Loaded ${data.length} days of data from server`;
+
+                // Fetch live stats
+                await fetchLiveStats();
+
+                showToast(`✅ Loaded ${data.length} days of price data`, 'success', 2000);
+
+            } else {
+                // Fallback: استفاده از داده‌های نمونه
+                const sampleData = generateSampleData();
+                priceHistory = sampleData;
+                updatePriceDisplay(sampleData[sampleData.length - 1].price);
+                updateGrowthMetrics(sampleData);
+                if (chart) {
+                    updateChart(sampleData);
+                } else {
+                    initChart(sampleData);
+                }
+                dataStatus.textContent = 'Demo';
+                statusMsg.textContent = '⚠️ Using demo data (server data unavailable)';
+                showToast('⚠️ Using demo data', 'info', 3000);
+            }
+        }
+
+        // ============================================================
+        // SAMPLE DATA (FALLBACK)
+        // ============================================================
+        function generateSampleData() {
+            const data = [];
+            const startPrice = 0.01;
+            const endPrice = 0.010004326799;
+            const days = 180;
+
+            for (let i = 0; i <= days; i++) {
+                const date = new Date();
+                date.setDate(date.getDate() - (days - i));
+                const progress = i / days;
+                const basePrice = startPrice + (endPrice - startPrice) * progress;
+                const variation = 1 + (Math.random() - 0.5) * 0.06;
+                data.push({
+                    date: date.toISOString().split('T')[0],
+                    price: Math.max(0.009, basePrice * variation)
+                });
+            }
+            data[data.length - 1].price = endPrice;
+            return data;
+        }
+
+        // ============================================================
+        // REFRESH & FETCH LIVE
+        // ============================================================
+        async function refreshData() {
+            showToast('🔄 Refreshing data...', 'info', 1500);
+            await loadDashboard();
+        }
+
+        async function fetchLiveAndUpdate() {
+            showToast('📡 Fetching live price...', 'info', 1500);
+            const price = await fetchLivePrice();
+            if (price !== null) {
+                updatePriceDisplay(price);
+                // Add to local history
+                const today = new Date().toISOString().split('T')[0];
+                const lastEntry = priceHistory[priceHistory.length - 1];
+                if (lastEntry && lastEntry.date !== today) {
+                    priceHistory.push({ date: today, price: price });
+                    if (priceHistory.length > 365) {
+                        priceHistory = priceHistory.slice(-365);
+                    }
+                    updateGrowthMetrics(priceHistory);
+                    updateChart(priceHistory);
+                }
+                await fetchLiveStats();
+                showToast(`✅ Live price: $${price.toFixed(6)}`, 'success', 2000);
+            } else {
+                showToast('⚠️ Could not fetch live price', 'error', 2000);
+            }
+        }
+
+        // ============================================================
+        // EVENT LISTENERS
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadDashboard();
+
+            $('btnRefresh').addEventListener('click', refreshData);
+            $('btnFetchLive').addEventListener('click', fetchLiveAndUpdate);
+
+            // Auto-refresh every 5 minutes
+            setInterval(async () => {
+                await loadDashboard();
+            }, 300000);
+
+            console.log('🚀 GAD Price Dashboard Loaded');
+            console.log(`📊 ${priceHistory.length} data points loaded`);
+        });
+    </script>
+
+</body>
+</html>
