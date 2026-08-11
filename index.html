@@ -9,7 +9,8 @@
     </script>
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&display=swap');
+        /* ===== IMPORT FONTS ===== */
+        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&display=swap');
 
         * {
             margin: 0;
@@ -18,7 +19,7 @@
         }
 
         body {
-            font-family: 'Orbitron', 'Segoe UI', sans-serif;
+            font-family: 'Rajdhani', 'Segoe UI', sans-serif;
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -26,7 +27,7 @@
             padding: 20px;
             color: #FFFFFF;
             direction: ltr;
-            background: #0A0A0F;
+            background: #05080F;
             overflow-x: hidden;
             position: relative;
         }
@@ -40,10 +41,10 @@
             height: 100%;
             z-index: 0;
             background:
-                linear-gradient(rgba(255, 179, 0, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 179, 0, 0.03) 1px, transparent 1px);
-            background-size: 60px 60px;
-            animation: gridMove 20s linear infinite;
+                linear-gradient(rgba(255, 179, 0, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 179, 0, 0.04) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 25s linear infinite;
         }
 
         @keyframes gridMove {
@@ -51,17 +52,17 @@
                 transform: translate(0, 0);
             }
             100% {
-                transform: translate(60px, 60px);
+                transform: translate(50px, 50px);
             }
         }
 
         .bg-glow {
             position: fixed;
             top: -30%;
-            right: -20%;
+            right: -15%;
             width: 700px;
             height: 700px;
-            background: radial-gradient(circle, rgba(255, 179, 0, 0.08), transparent 70%);
+            background: radial-gradient(circle, rgba(255, 179, 0, 0.12), transparent 70%);
             border-radius: 50%;
             z-index: 0;
             animation: pulseGlow 4s ease-in-out infinite;
@@ -70,10 +71,10 @@
         .bg-glow-2 {
             position: fixed;
             bottom: -30%;
-            left: -20%;
+            left: -15%;
             width: 600px;
             height: 600px;
-            background: radial-gradient(circle, rgba(0, 200, 255, 0.06), transparent 70%);
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.08), transparent 70%);
             border-radius: 50%;
             z-index: 0;
             animation: pulseGlow 5s ease-in-out infinite reverse;
@@ -83,24 +84,24 @@
             0%,
             100% {
                 transform: scale(1);
-                opacity: 0.5;
+                opacity: 0.6;
             }
             50% {
-                transform: scale(1.2);
+                transform: scale(1.15);
                 opacity: 1;
             }
         }
 
-        /* ===== PARTICLE SPARKLES ===== */
+        /* ===== SPARKLES ===== */
         .sparkle {
             position: fixed;
-            width: 3px;
-            height: 3px;
+            width: 4px;
+            height: 4px;
             background: #FFB300;
             border-radius: 50%;
             z-index: 0;
             animation: sparkleFloat linear infinite;
-            box-shadow: 0 0 6px #FFB300, 0 0 12px rgba(255, 179, 0, 0.3);
+            box-shadow: 0 0 10px #FFB300, 0 0 20px rgba(255, 179, 0, 0.3);
         }
 
         .sparkle:nth-child(1) {
@@ -157,26 +158,26 @@
                 opacity: 0.2;
             }
             50% {
-                transform: translateY(-30px) scale(2);
+                transform: translateY(-40px) scale(2.5);
                 opacity: 1;
             }
             100% {
-                transform: translateY(-60px) scale(1);
+                transform: translateY(-80px) scale(1);
                 opacity: 0.2;
             }
         }
 
         /* ===== MAIN CONTAINER ===== */
         .container {
-            max-width: 880px;
+            max-width: 900px;
             width: 100%;
-            background: rgba(10, 10, 15, 0.75);
+            background: rgba(5, 8, 15, 0.75);
             backdrop-filter: blur(30px);
             -webkit-backdrop-filter: blur(30px);
-            border-radius: 32px;
+            border-radius: 36px;
             padding: 32px 28px 36px;
-            border: 1px solid rgba(255, 179, 0, 0.1);
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 179, 0, 0.05);
+            border: 1px solid rgba(255, 179, 0, 0.08);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 179, 0, 0.06);
             animation: floatIn 0.7s ease-out;
             position: relative;
             z-index: 1;
@@ -210,9 +211,9 @@
         }
 
         .logo-icon {
-            font-size: 36px;
+            font-size: 40px;
             color: #FFB300;
-            filter: drop-shadow(0 0 20px rgba(255, 179, 0, 0.3));
+            filter: drop-shadow(0 0 30px rgba(255, 179, 0, 0.4));
             animation: iconPulse 3s ease-in-out infinite;
         }
 
@@ -220,23 +221,25 @@
             0%,
             100% {
                 transform: scale(1);
-                filter: drop-shadow(0 0 20px rgba(255, 179, 0, 0.3));
+                filter: drop-shadow(0 0 30px rgba(255, 179, 0, 0.4));
             }
             50% {
-                transform: scale(1.05);
-                filter: drop-shadow(0 0 40px rgba(255, 179, 0, 0.5));
+                transform: scale(1.08);
+                filter: drop-shadow(0 0 60px rgba(255, 179, 0, 0.6));
             }
         }
 
         .logo-text {
-            font-size: 26px;
-            font-weight: 900;
+            font-size: 32px;
+            font-weight: 700;
+            font-family: 'Rajdhani', sans-serif;
             background: linear-gradient(135deg, #FFB300, #FF6F00, #FFB300);
             background-size: 200% 200%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: gradientShift 4s ease-in-out infinite;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
+            text-shadow: 0 0 40px rgba(255, 179, 0, 0.1);
         }
 
         @keyframes gradientShift {
@@ -250,51 +253,53 @@
         }
 
         .logo-text small {
-            font-size: 12px;
-            font-weight: 400;
+            font-size: 14px;
+            font-weight: 500;
             color: #00D4FF;
             -webkit-text-fill-color: #00D4FF;
-            letter-spacing: 3px;
-            margin-left: 6px;
+            letter-spacing: 4px;
+            margin-left: 8px;
         }
 
         .trade-link {
-            background: linear-gradient(135deg, rgba(255, 179, 0, 0.12), rgba(255, 179, 0, 0.04));
-            border: 1px solid rgba(255, 179, 0, 0.15);
+            background: linear-gradient(135deg, rgba(255, 179, 0, 0.15), rgba(255, 179, 0, 0.04));
+            border: 1.5px solid rgba(255, 179, 0, 0.15);
             border-radius: 40px;
-            padding: 8px 20px;
-            font-size: 12px;
+            padding: 10px 24px;
+            font-size: 14px;
+            font-weight: 700;
+            font-family: 'Rajdhani', sans-serif;
             color: #FFB300;
             text-decoration: none;
             transition: all 0.3s;
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-weight: 600;
-            letter-spacing: 1px;
+            gap: 10px;
+            letter-spacing: 2px;
             text-transform: uppercase;
+            box-shadow: 0 0 30px rgba(255, 179, 0, 0.05);
         }
 
         .trade-link:hover {
             background: rgba(255, 179, 0, 0.15);
-            box-shadow: 0 0 40px rgba(255, 179, 0, 0.1);
+            box-shadow: 0 0 60px rgba(255, 179, 0, 0.15);
             transform: scale(1.05);
             border-color: #FFB300;
         }
 
         .divider {
-            height: 1px;
+            height: 2px;
             background: linear-gradient(to right, #FFB300, #00D4FF, transparent);
             margin: 4px 0 20px 0;
             border-radius: 4px;
-            opacity: 0.3;
+            opacity: 0.2;
         }
 
         /* ===== PRICE SECTION ===== */
         .price-section {
             text-align: center;
-            padding: 28px 0 22px 0;
-            background: linear-gradient(180deg, rgba(255, 179, 0, 0.04), transparent);
+            padding: 30px 0 24px 0;
+            background: linear-gradient(180deg, rgba(255, 179, 0, 0.05), transparent);
             border-radius: 28px;
             border: 1px solid rgba(255, 179, 0, 0.04);
             margin-bottom: 20px;
@@ -305,64 +310,69 @@
             content: '';
             position: absolute;
             top: -1px;
-            left: 20%;
-            right: 20%;
-            height: 2px;
+            left: 15%;
+            right: 15%;
+            height: 3px;
             background: linear-gradient(90deg, transparent, #FFB300, transparent);
             border-radius: 4px;
             opacity: 0.3;
         }
 
         .price-label {
-            font-size: 13px;
+            font-size: 16px;
+            font-weight: 600;
             color: #4A5A7A;
-            letter-spacing: 4px;
+            letter-spacing: 5px;
             text-transform: uppercase;
-            font-weight: 400;
+            font-family: 'Rajdhani', sans-serif;
         }
 
         .price-value {
-            font-size: 72px;
-            font-weight: 900;
+            font-size: 82px;
+            font-weight: 700;
+            font-family: 'Rajdhani', sans-serif;
             color: #FFFFFF;
-            line-height: 1.1;
-            margin-top: 2px;
-            font-family: 'Orbitron', sans-serif;
-            text-shadow: 0 0 60px rgba(255, 179, 0, 0.05);
+            line-height: 1;
+            margin-top: 4px;
+            text-shadow: 0 0 60px rgba(255, 179, 0, 0.08);
+            letter-spacing: 2px;
         }
 
         .price-value .dollar {
-            font-size: 40px;
+            font-size: 44px;
             color: #4A5A7A;
-            font-weight: 400;
+            font-weight: 600;
         }
 
         .price-value .cents {
-            font-size: 36px;
+            font-size: 38px;
             color: #4A5A7A;
-            font-weight: 400;
+            font-weight: 600;
         }
 
         .price-change {
             display: inline-block;
-            padding: 6px 20px;
+            padding: 8px 24px;
             border-radius: 40px;
-            font-size: 16px;
+            font-size: 20px;
             font-weight: 700;
-            margin-top: 6px;
-            letter-spacing: 1px;
+            font-family: 'Rajdhani', sans-serif;
+            margin-top: 8px;
+            letter-spacing: 1.5px;
         }
 
         .price-change.positive {
             color: #00FF88;
             background: rgba(0, 255, 136, 0.08);
-            border: 1px solid rgba(0, 255, 136, 0.15);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.05);
         }
 
         .price-change.negative {
             color: #FF0055;
             background: rgba(255, 0, 85, 0.08);
-            border: 1px solid rgba(255, 0, 85, 0.15);
+            border: 1px solid rgba(255, 0, 85, 0.2);
+            box-shadow: 0 0 30px rgba(255, 0, 85, 0.05);
         }
 
         .price-change.neutral {
@@ -372,26 +382,27 @@
         }
 
         .price-update-time {
-            font-size: 11px;
+            font-size: 13px;
+            font-weight: 500;
             color: #3A4A5A;
-            margin-top: 6px;
-            letter-spacing: 1px;
-            font-weight: 300;
+            margin-top: 8px;
+            letter-spacing: 1.5px;
+            font-family: 'Rajdhani', sans-serif;
         }
 
         /* ===== GROWTH METRICS ===== */
         .growth-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin-bottom: 18px;
+            gap: 14px;
+            margin-bottom: 20px;
         }
 
         .growth-card {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.04);
-            border-radius: 16px;
-            padding: 14px 10px;
+            border-radius: 18px;
+            padding: 16px 12px;
             text-align: center;
             transition: all 0.4s;
             position: relative;
@@ -405,7 +416,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(255, 179, 0, 0.03), transparent);
+            background: linear-gradient(135deg, rgba(255, 179, 0, 0.04), transparent);
             opacity: 0;
             transition: opacity 0.4s;
         }
@@ -415,101 +426,112 @@
         }
 
         .growth-card:hover {
-            border-color: rgba(255, 179, 0, 0.1);
-            transform: translateY(-2px);
+            border-color: rgba(255, 179, 0, 0.12);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
         }
 
         .growth-card .period {
-            font-size: 10px;
+            font-size: 12px;
+            font-weight: 600;
             color: #4A5A7A;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 400;
+            letter-spacing: 2.5px;
+            font-family: 'Rajdhani', sans-serif;
         }
 
         .growth-card .value {
-            font-size: 22px;
+            font-size: 28px;
             font-weight: 700;
-            margin-top: 4px;
-            font-family: 'Orbitron', sans-serif;
+            margin-top: 6px;
+            font-family: 'Rajdhani', sans-serif;
         }
 
         .growth-card .value.positive {
             color: #00FF88;
+            text-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
         }
         .growth-card .value.negative {
             color: #FF0055;
+            text-shadow: 0 0 20px rgba(255, 0, 85, 0.2);
         }
         .growth-card .value.neutral {
             color: #FFB300;
+            text-shadow: 0 0 20px rgba(255, 179, 0, 0.2);
         }
 
         /* ===== STATS ===== */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
+            gap: 14px;
             margin-bottom: 20px;
         }
 
         .stat-card {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.04);
-            border-radius: 20px;
-            padding: 16px 14px;
+            border-radius: 22px;
+            padding: 18px 14px;
             text-align: center;
             transition: all 0.4s;
             position: relative;
         }
 
         .stat-card:hover {
-            border-color: rgba(255, 179, 0, 0.1);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 179, 0, 0.12);
+            transform: translateY(-4px);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
         }
 
         .stat-card .icon {
-            font-size: 24px;
+            font-size: 28px;
             display: block;
             margin-bottom: 4px;
         }
 
         .stat-card .value {
-            font-size: 22px;
+            font-size: 28px;
             font-weight: 700;
+            font-family: 'Rajdhani', sans-serif;
             color: #FFFFFF;
-            font-family: 'Orbitron', sans-serif;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
         }
 
         .stat-card .value.gold {
             color: #FFB300;
+            text-shadow: 0 0 30px rgba(255, 179, 0, 0.15);
         }
         .stat-card .value.blue {
             color: #00D4FF;
+            text-shadow: 0 0 30px rgba(0, 212, 255, 0.15);
         }
         .stat-card .value.green {
             color: #00FF88;
+            text-shadow: 0 0 30px rgba(0, 255, 136, 0.15);
         }
         .stat-card .value.pink {
             color: #FF6B9D;
+            text-shadow: 0 0 30px rgba(255, 107, 157, 0.15);
         }
 
         .stat-card .label {
-            font-size: 10px;
+            font-size: 12px;
+            font-weight: 600;
             color: #4A5A7A;
-            letter-spacing: 2px;
+            letter-spacing: 2.5px;
             margin-top: 4px;
-            font-weight: 400;
             text-transform: uppercase;
+            font-family: 'Rajdhani', sans-serif;
         }
 
         /* ===== CHART ===== */
         .chart-container {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.04);
-            border-radius: 24px;
-            padding: 18px;
-            margin-bottom: 16px;
+            border-radius: 26px;
+            padding: 20px;
+            margin-bottom: 18px;
             position: relative;
             transition: all 0.4s;
         }
@@ -520,82 +542,84 @@
 
         .chart-container canvas {
             width: 100% !important;
-            height: 300px !important;
+            height: 320px !important;
         }
 
         .chart-title {
-            font-size: 11px;
+            font-size: 13px;
+            font-weight: 600;
             color: #4A5A7A;
             letter-spacing: 3px;
             text-transform: uppercase;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-weight: 400;
+            font-family: 'Rajdhani', sans-serif;
         }
 
         .chart-title .badge {
             background: rgba(255, 179, 0, 0.06);
-            padding: 2px 14px;
+            padding: 4px 16px;
             border-radius: 20px;
-            font-size: 9px;
+            font-size: 11px;
+            font-weight: 600;
             color: #FFB300;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
             border: 1px solid rgba(255, 179, 0, 0.06);
         }
 
         /* ===== BUTTONS ===== */
         .btn-group {
             display: flex;
-            gap: 12px;
+            gap: 14px;
             flex-wrap: wrap;
             margin-bottom: 16px;
             justify-content: center;
         }
 
         .btn {
-            padding: 12px 28px;
+            padding: 14px 34px;
             border: none;
             border-radius: 40px;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 13px;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 16px;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s;
             touch-action: manipulation;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
         }
 
         .btn-gold {
             background: linear-gradient(135deg, #FFB300, #FF8F00);
-            color: #0A0A0F;
-            box-shadow: 0 4px 30px rgba(255, 179, 0, 0.15);
+            color: #05080F;
+            box-shadow: 0 4px 40px rgba(255, 179, 0, 0.15);
         }
 
         .btn-gold:hover {
-            box-shadow: 0 8px 50px rgba(255, 179, 0, 0.25);
-            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 60px rgba(255, 179, 0, 0.3);
+            transform: translateY(-3px) scale(1.03);
         }
 
         .btn-cyan {
             background: linear-gradient(135deg, #00D4FF, #0091EA);
-            color: #0A0A0F;
-            box-shadow: 0 4px 30px rgba(0, 212, 255, 0.15);
+            color: #05080F;
+            box-shadow: 0 4px 40px rgba(0, 212, 255, 0.15);
         }
 
         .btn-cyan:hover {
-            box-shadow: 0 8px 50px rgba(0, 212, 255, 0.25);
-            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 60px rgba(0, 212, 255, 0.3);
+            transform: translateY(-3px) scale(1.03);
         }
 
         .btn-outline {
             background: transparent;
-            border: 1.5px solid rgba(255, 255, 255, 0.06);
+            border: 2px solid rgba(255, 255, 255, 0.06);
             color: #B0C4DE;
         }
 
@@ -608,11 +632,12 @@
         /* ===== STATUS ===== */
         .status-msg {
             text-align: center;
-            font-size: 11px;
+            font-size: 13px;
+            font-weight: 500;
             color: #3A4A5A;
             padding: 4px 0 8px 0;
-            letter-spacing: 1px;
-            font-weight: 300;
+            letter-spacing: 1.5px;
+            font-family: 'Rajdhani', sans-serif;
         }
 
         /* ===== TOAST ===== */
@@ -621,21 +646,21 @@
             bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(10, 10, 15, 0.95);
+            background: rgba(5, 8, 15, 0.95);
             backdrop-filter: blur(20px);
             color: #E8EDF5;
-            padding: 14px 28px;
+            padding: 16px 32px;
             border-radius: 40px;
             border: 1px solid rgba(255, 255, 255, 0.04);
-            font-size: 13px;
+            font-size: 15px;
+            font-weight: 600;
+            font-family: 'Rajdhani', sans-serif;
             z-index: 999;
             max-width: 90%;
             text-align: center;
             box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6);
             transition: all 0.4s ease;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 500;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
         }
 
         .toast.success {
@@ -660,33 +685,33 @@
                 border-radius: 28px;
             }
             .logo-text {
-                font-size: 18px;
+                font-size: 22px;
             }
             .price-value {
-                font-size: 44px;
+                font-size: 50px;
             }
             .price-value .dollar {
-                font-size: 28px;
+                font-size: 30px;
             }
             .price-value .cents {
-                font-size: 24px;
+                font-size: 26px;
             }
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 8px;
+                gap: 10px;
             }
             .stat-card {
-                padding: 12px 10px;
+                padding: 14px 10px;
             }
             .stat-card .value {
-                font-size: 16px;
+                font-size: 20px;
             }
             .growth-grid {
                 grid-template-columns: 1fr 1fr 1fr;
                 gap: 8px;
             }
             .growth-card .value {
-                font-size: 16px;
+                font-size: 20px;
             }
             .chart-container canvas {
                 height: 200px !important;
@@ -696,33 +721,33 @@
                 align-items: flex-start;
             }
             .price-section {
-                padding: 18px 12px 16px;
+                padding: 20px 12px 18px;
             }
             .btn {
-                font-size: 11px;
-                padding: 10px 18px;
+                font-size: 13px;
+                padding: 12px 22px;
             }
         }
 
         @media (max-width: 400px) {
             .stats-grid {
                 grid-template-columns: 1fr 1fr;
-                gap: 6px;
+                gap: 8px;
             }
             .stat-card .value {
-                font-size: 14px;
+                font-size: 18px;
             }
             .growth-grid {
                 grid-template-columns: 1fr;
             }
             .price-value {
-                font-size: 34px;
+                font-size: 38px;
             }
             .price-value .dollar {
-                font-size: 20px;
+                font-size: 22px;
             }
             .price-value .cents {
-                font-size: 18px;
+                font-size: 20px;
             }
             .btn-group {
                 flex-direction: column;
@@ -738,7 +763,7 @@
 
 <body>
 
-    <!-- ===== ANIMATED BACKGROUND ===== -->
+    <!-- ===== BACKGROUND ===== -->
     <div class="bg-grid"></div>
     <div class="bg-glow"></div>
     <div class="bg-glow-2"></div>
@@ -766,12 +791,12 @@
                 <span class="logo-text">GAD <small>TOKEN</small></span>
             </div>
             <a href="https://gad-token-trade-EN.vercel.app" target="_blank" class="trade-link">
-                ⚡ TRADE
+                ⚡ TRADE NOW
             </a>
         </div>
         <div class="divider"></div>
 
-        <!-- PRICE SECTION -->
+        <!-- PRICE -->
         <div class="price-section">
             <div class="price-label">✦ GAD / USDT ✦</div>
             <div class="price-value" id="priceDisplay">
@@ -781,7 +806,7 @@
             <div class="price-update-time" id="updateTime">⏳ LOADING DATA...</div>
         </div>
 
-        <!-- GROWTH METRICS -->
+        <!-- GROWTH -->
         <div class="growth-grid">
             <div class="growth-card">
                 <div class="period">⚡ 30 DAYS</div>
@@ -849,7 +874,6 @@
         // ============================================================
         const CONFIG = {
             GAD_TOKEN_ADDRESS: '0x3A2F29a2B8D38EcF1E3CF72f698C570594e6628c',
-            RPC_URL: 'https://bsc-dataseed.binance.org/',
             DECIMALS: 18,
             EXPLORER_URL: 'https://bscscan.com',
             DATA_URL: 'data/price-history.json'
@@ -909,7 +933,7 @@
         }
 
         // ============================================================
-        // FETCH DATA FROM GITHUB
+        // FETCH DATA
         // ============================================================
         async function fetchDataFromServer() {
             try {
@@ -1000,7 +1024,7 @@
         }
 
         // ============================================================
-        // UPDATE PRICE DISPLAY
+        // UPDATE PRICE
         // ============================================================
         function updatePriceDisplay(price) {
             if (price === null || price === undefined) return;
@@ -1008,7 +1032,7 @@
 
             const parts = price.toFixed(10).split('.');
             priceValue.textContent = parts[0];
-            priceCents.textContent = '.' + (parts[1] || '0000').padEnd(4, '0').slice(0, 4);
+            priceCents.textContent = '.' + (parts[1] || '0000').padEnd(7, '0').slice(0, 7);
         }
 
         function updateGrowthMetrics(data) {
@@ -1022,7 +1046,6 @@
             const today = data[data.length - 1].price;
             const todayDate = new Date(data[data.length - 1].date);
 
-            // 30 days
             const date30 = new Date(todayDate);
             date30.setDate(date30.getDate() - 30);
             let price30 = null;
@@ -1032,7 +1055,6 @@
             }
             if (!price30 && data.length > 0) price30 = data[0].price;
 
-            // 90 days
             const date90 = new Date(todayDate);
             date90.setDate(date90.getDate() - 90);
             let price90 = null;
@@ -1042,7 +1064,6 @@
             }
             if (!price90 && data.length > 0) price90 = data[0].price;
 
-            // 180 days
             const date180 = new Date(todayDate);
             date180.setDate(date180.getDate() - 180);
             let price180 = null;
@@ -1088,12 +1109,13 @@
                     data: data.map(p => p.price),
                     borderColor: '#FFB300',
                     backgroundColor: 'rgba(255, 179, 0, 0.04)',
-                    borderWidth: 2.5,
+                    borderWidth: 3,
                     pointBackgroundColor: '#FFB300',
                     pointRadius: data.length > 100 ? 0.5 : 1.5,
-                    pointHoverRadius: 6,
+                    pointHoverRadius: 7,
                     fill: true,
-                    tension: 0.3
+                    tension: 0.3,
+                    borderJoinStyle: 'round'
                 }]
             };
 
@@ -1107,20 +1129,22 @@
                         legend: {
                             labels: {
                                 color: '#4A5A7A',
-                                font: { size: 11, family: 'Orbitron, sans-serif' }
+                                font: { size: 12, family: 'Rajdhani, sans-serif', weight: '600' }
                             }
                         },
                         tooltip: {
-                            backgroundColor: 'rgba(10,10,15,0.95)',
+                            backgroundColor: 'rgba(5,8,15,0.95)',
                             titleColor: '#FFFFFF',
                             bodyColor: '#FFB300',
                             borderColor: 'rgba(255,179,0,0.1)',
                             borderWidth: 1,
-                            cornerRadius: 12,
-                            padding: 14,
+                            cornerRadius: 14,
+                            padding: 16,
+                            titleFont: { family: 'Rajdhani, sans-serif', size: 14, weight: '600' },
+                            bodyFont: { family: 'Rajdhani, sans-serif', size: 14, weight: '700' },
                             callbacks: {
                                 label: function(context) {
-                                    return '$' + context.parsed.y.toFixed(6) + ' USDT';
+                                    return '$' + context.parsed.y.toFixed(7) + ' USDT';
                                 }
                             }
                         }
@@ -1133,9 +1157,10 @@
                             },
                             ticks: {
                                 color: '#3A4A5A',
-                                font: { size: 9, family: 'Orbitron, sans-serif' },
-                                maxTicksLimit: data.length > 180 ? 20 : 15,
-                                maxRotation: 45
+                                font: { size: 10, family: 'Rajdhani, sans-serif', weight: '600' },
+                                maxTicksLimit: data.length > 180 ? 15 : 12,
+                                maxRotation: 45,
+                                autoSkip: true
                             }
                         },
                         y: {
@@ -1145,9 +1170,9 @@
                             },
                             ticks: {
                                 color: '#3A4A5A',
-                                font: { size: 10, family: 'Orbitron, sans-serif' },
+                                font: { size: 11, family: 'Rajdhani, sans-serif', weight: '600' },
                                 callback: function(value) {
-                                    return '$' + value.toFixed(4);
+                                    return '$' + value.toFixed(7);
                                 }
                             }
                         }
@@ -1168,7 +1193,7 @@
         }
 
         // ============================================================
-        // SAMPLE DATA (FALLBACK)
+        // SAMPLE DATA
         // ============================================================
         function generateSampleData() {
             const data = [];
@@ -1265,7 +1290,7 @@
                     updateChart(priceHistory);
                 }
                 await fetchLiveStats();
-                showToast(`✅ LIVE PRICE: $${price.toFixed(6)}`, 'success', 2000);
+                showToast(`✅ LIVE PRICE: $${price.toFixed(7)}`, 'success', 2000);
             } else {
                 showToast('⚠️ COULD NOT FETCH LIVE PRICE', 'error', 2000);
             }
@@ -1275,12 +1300,10 @@
         // EVENT LISTENERS
         // ============================================================
         document.addEventListener('DOMContentLoaded', async () => {
-            // Load ethers.js dynamically
             const script = document.createElement('script');
             script.src = 'https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.1/ethers.umd.min.js';
             script.onload = async function() {
                 await loadDashboard();
-                // Auto-fetch live price after 2 seconds
                 setTimeout(fetchLiveAndUpdate, 2000);
             };
             document.head.appendChild(script);
@@ -1288,7 +1311,6 @@
             $('btnRefresh').addEventListener('click', refreshData);
             $('btnFetchLive').addEventListener('click', fetchLiveAndUpdate);
 
-            // Auto-refresh every 5 minutes
             setInterval(async () => {
                 await loadDashboard();
             }, 300000);
