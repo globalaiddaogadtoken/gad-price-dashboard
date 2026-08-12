@@ -9,7 +9,6 @@
     </script>
 
     <style>
-        /* ===== IMPORT FONTS ===== */
         @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&display=swap');
 
         * {
@@ -32,7 +31,6 @@
             position: relative;
         }
 
-        /* ===== ANIMATED BACKGROUND ===== */
         .bg-grid {
             position: fixed;
             top: 0;
@@ -92,7 +90,6 @@
             }
         }
 
-        /* ===== SPARKLES ===== */
         .sparkle {
             position: fixed;
             width: 4px;
@@ -167,7 +164,6 @@
             }
         }
 
-        /* ===== MAIN CONTAINER ===== */
         .container {
             max-width: 900px;
             width: 100%;
@@ -194,7 +190,6 @@
             }
         }
 
-        /* ===== HEADER ===== */
         .header {
             display: flex;
             align-items: center;
@@ -295,7 +290,6 @@
             opacity: 0.2;
         }
 
-        /* ===== PRICE SECTION ===== */
         .price-section {
             text-align: center;
             padding: 30px 0 24px 0;
@@ -390,7 +384,6 @@
             font-family: 'Rajdhani', sans-serif;
         }
 
-        /* ===== GROWTH METRICS ===== */
         .growth-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -460,7 +453,6 @@
             text-shadow: 0 0 20px rgba(255, 179, 0, 0.2);
         }
 
-        /* ===== STATS ===== */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -525,7 +517,6 @@
             font-family: 'Rajdhani', sans-serif;
         }
 
-        /* ===== CHART ===== */
         .chart-container {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.04);
@@ -569,7 +560,6 @@
             border: 1px solid rgba(255, 179, 0, 0.06);
         }
 
-        /* ===== BUTTONS ===== */
         .btn-group {
             display: flex;
             gap: 14px;
@@ -629,7 +619,200 @@
             background: rgba(255, 255, 255, 0.02);
         }
 
-        /* ===== STATUS ===== */
+        /* ===== SOCIAL BUTTONS ===== */
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .social-btn {
+            padding: 12px 8px;
+            border: none;
+            border-radius: 16px;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            touch-action: manipulation;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            color: #FFFFFF;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .social-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .social-btn.whitepaper {
+            background: linear-gradient(135deg, rgba(255, 179, 0, 0.08), rgba(255, 179, 0, 0.02));
+            border-color: rgba(255, 179, 0, 0.1);
+        }
+        .social-btn.whitepaper:hover {
+            background: rgba(255, 179, 0, 0.12);
+            border-color: #FFB300;
+        }
+
+        .social-btn.telegram {
+            background: linear-gradient(135deg, rgba(0, 136, 204, 0.08), rgba(0, 136, 204, 0.02));
+            border-color: rgba(0, 136, 204, 0.1);
+        }
+        .social-btn.telegram:hover {
+            background: rgba(0, 136, 204, 0.12);
+            border-color: #0088CC;
+        }
+
+        .social-btn.instagram {
+            background: linear-gradient(135deg, rgba(225, 48, 108, 0.08), rgba(225, 48, 108, 0.02));
+            border-color: rgba(225, 48, 108, 0.1);
+        }
+        .social-btn.instagram:hover {
+            background: rgba(225, 48, 108, 0.12);
+            border-color: #E1306C;
+        }
+
+        .social-btn.website {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.08), rgba(0, 212, 255, 0.02));
+            border-color: rgba(0, 212, 255, 0.1);
+        }
+        .social-btn.website:hover {
+            background: rgba(0, 212, 255, 0.12);
+            border-color: #00D4FF;
+        }
+
+        .social-btn .icon {
+            font-size: 20px;
+        }
+
+        /* ===== WHITEPAPER MODAL ===== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(5, 8, 15, 0.85);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            max-width: 700px;
+            width: 100%;
+            max-height: 80vh;
+            background: rgba(10, 15, 25, 0.95);
+            border: 1px solid rgba(255, 179, 0, 0.1);
+            border-radius: 28px;
+            padding: 32px 28px;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8);
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-content::-webkit-scrollbar {
+            width: 4px;
+        }
+        .modal-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 4px;
+        }
+        .modal-content::-webkit-scrollbar-thumb {
+            background: #FFB300;
+            border-radius: 4px;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .modal-header h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #FFB300;
+            font-family: 'Rajdhani', sans-serif;
+            letter-spacing: 2px;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: #4A5A7A;
+            font-size: 32px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        .modal-close:hover {
+            color: #FFB300;
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            color: #B0C4DE;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 16px;
+            line-height: 1.8;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .modal-body h3 {
+            color: #FFB300;
+            margin-top: 16px;
+            margin-bottom: 8px;
+        }
+
+        .modal-body ul {
+            padding-left: 20px;
+        }
+
+        .modal-body li {
+            margin-bottom: 4px;
+        }
+
+        .copy-btn {
+            background: rgba(255, 179, 0, 0.06);
+            border: 1px solid rgba(255, 179, 0, 0.1);
+            border-radius: 40px;
+            padding: 6px 16px;
+            font-size: 12px;
+            font-weight: 600;
+            font-family: 'Rajdhani', sans-serif;
+            color: #FFB300;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .copy-btn:hover {
+            background: rgba(255, 179, 0, 0.12);
+            border-color: #FFB300;
+        }
+
         .status-msg {
             text-align: center;
             font-size: 13px;
@@ -640,7 +823,6 @@
             font-family: 'Rajdhani', sans-serif;
         }
 
-        /* ===== TOAST ===== */
         .toast {
             position: fixed;
             bottom: 30px;
@@ -678,7 +860,6 @@
             pointer-events: none;
         }
 
-        /* ===== RESPONSIVE ===== */
         @media (max-width: 600px) {
             .container {
                 padding: 20px 16px 24px;
@@ -727,6 +908,20 @@
                 font-size: 13px;
                 padding: 12px 22px;
             }
+            .social-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .social-btn {
+                font-size: 12px;
+                padding: 10px 8px;
+            }
+            .modal-content {
+                padding: 20px 16px;
+                max-height: 90vh;
+            }
+            .modal-header h2 {
+                font-size: 20px;
+            }
         }
 
         @media (max-width: 400px) {
@@ -757,18 +952,19 @@
                 width: 100%;
                 justify-content: center;
             }
+            .social-grid {
+                grid-template-columns: 1fr 1fr;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <!-- ===== BACKGROUND ===== -->
     <div class="bg-grid"></div>
     <div class="bg-glow"></div>
     <div class="bg-glow-2"></div>
 
-    <!-- ===== SPARKLES ===== -->
     <div class="sparkle"></div>
     <div class="sparkle"></div>
     <div class="sparkle"></div>
@@ -778,13 +974,30 @@
     <div class="sparkle"></div>
     <div class="sparkle"></div>
 
-    <!-- ===== TOAST ===== -->
     <div id="toast" class="toast hidden"></div>
+
+    <!-- ===== WHITEPAPER MODAL ===== -->
+    <div class="modal-overlay" id="whitepaperModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📄 WHITEPAPER</h2>
+                <div style="display:flex; gap:12px; align-items:center;">
+                    <button class="copy-btn" id="copyWhitepaperBtn">📋 COPY</button>
+                    <button class="modal-close" id="closeModalBtn">✕</button>
+                </div>
+            </div>
+            <div class="modal-body" id="whitepaperBody">
+                <!-- Whitepaper content will be injected here -->
+                <div style="text-align:center; padding:40px 0; color:#4A5A7A;">
+                    ⏳ Loading whitepaper...
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- ===== MAIN CONTAINER ===== -->
     <div class="container">
 
-        <!-- HEADER -->
         <div class="header">
             <div class="logo-section">
                 <span class="logo-icon">✦</span>
@@ -796,7 +1009,6 @@
         </div>
         <div class="divider"></div>
 
-        <!-- PRICE -->
         <div class="price-section">
             <div class="price-label">✦ GAD / USDT ✦</div>
             <div class="price-value" id="priceDisplay">
@@ -806,7 +1018,6 @@
             <div class="price-update-time" id="updateTime">⏳ LOADING DATA...</div>
         </div>
 
-        <!-- GROWTH -->
         <div class="growth-grid">
             <div class="growth-card">
                 <div class="period">⚡ 30 DAYS</div>
@@ -822,7 +1033,6 @@
             </div>
         </div>
 
-        <!-- STATS -->
         <div class="stats-grid">
             <div class="stat-card">
                 <span class="icon">👥</span>
@@ -846,7 +1056,6 @@
             </div>
         </div>
 
-        <!-- CHART -->
         <div class="chart-container">
             <div class="chart-title">
                 <span>📊 PRICE HISTORY <span id="dataRange"></span></span>
@@ -855,7 +1064,22 @@
             <canvas id="priceChart"></canvas>
         </div>
 
-        <!-- BUTTONS -->
+        <!-- ===== SOCIAL BUTTONS ===== -->
+        <div class="social-grid">
+            <button class="social-btn whitepaper" id="whitepaperBtn">
+                <span class="icon">📄</span> Whitepaper
+            </button>
+            <a href="https://t.me/SMART_BAINANCE_BOT" target="_blank" class="social-btn telegram">
+                <span class="icon">🤖</span> Telegram
+            </a>
+            <a href="https://instagram.com/gadaid" target="_blank" class="social-btn instagram">
+                <span class="icon">📸</span> Instagram
+            </a>
+            <a href="https://global-aid-dao.vercel.app" target="_blank" class="social-btn website">
+                <span class="icon">🌐</span> Website
+            </a>
+        </div>
+
         <div class="btn-group">
             <button id="btnRefresh" class="btn btn-gold">⟳ REFRESH</button>
             <button id="btnFetchLive" class="btn btn-cyan">📡 FETCH LIVE</button>
@@ -865,9 +1089,6 @@
 
     </div>
 
-    <!-- ================================================================
-    JAVASCRIPT
-    ================================================================ -->
     <script>
         // ============================================================
         // CONFIGURATION
@@ -876,7 +1097,10 @@
             GAD_TOKEN_ADDRESS: '0x3A2F29a2B8D38EcF1E3CF72f698C570594e6628c',
             DECIMALS: 18,
             EXPLORER_URL: 'https://bscscan.com',
-            DATA_URL: 'data/price-history.json'
+            DATA_URL: 'data/price-history.json',
+            HISTORY_DAYS: 60,
+            START_PRICE: 0.005,
+            END_PRICE: 0.010004326799
         };
 
         // ============================================================
@@ -887,7 +1111,8 @@
             'function holderCount() view returns (uint256)',
             'function getTotalGADSupply() view returns (uint256)',
             'function getMarketCap() view returns (uint256)',
-            'function getCirculatingSupply() view returns (uint256)'
+            'function getCirculatingSupply() view returns (uint256)',
+            'function getWhitepaper() view returns (string content, uint256 lastUpdated)'
         ];
 
         // ============================================================
@@ -896,6 +1121,7 @@
         let priceHistory = [];
         let chart = null;
         let currentPrice = 0;
+        let whitepaperContent = '';
 
         // ============================================================
         // DOM REFS
@@ -916,6 +1142,9 @@
         const growth30 = $('growth30');
         const growth90 = $('growth90');
         const growth180 = $('growth180');
+        const whitepaperModal = $('whitepaperModal');
+        const whitepaperBody = $('whitepaperBody');
+        const copyWhitepaperBtn = $('copyWhitepaperBtn');
 
         // ============================================================
         // TOAST
@@ -948,7 +1177,35 @@
         }
 
         // ============================================================
-        // FETCH LIVE PRICE (MULTIPLE RPC)
+        // FETCH WHITEPAPER
+        // ============================================================
+        async function fetchWhitepaper() {
+            const rpcList = [
+                'https://bsc-dataseed.binance.org/',
+                'https://bsc-dataseed1.binance.org/',
+                'https://bsc-dataseed2.binance.org/',
+                'https://bsc-dataseed3.binance.org/'
+            ];
+
+            for (const rpc of rpcList) {
+                try {
+                    const provider = new ethers.JsonRpcProvider(rpc);
+                    const contract = new ethers.Contract(CONFIG.GAD_TOKEN_ADDRESS, GAD_ABI, provider);
+                    const result = await contract.getWhitepaper();
+                    if (result) {
+                        whitepaperContent = result.content || 'No whitepaper content available.';
+                        return whitepaperContent;
+                    }
+                } catch (err) {
+                    continue;
+                }
+            }
+            whitepaperContent = '⚠️ Could not fetch whitepaper from blockchain. Please check contract address.';
+            return whitepaperContent;
+        }
+
+        // ============================================================
+        // FETCH LIVE PRICE
         // ============================================================
         async function fetchLivePrice() {
             const rpcList = [
@@ -956,11 +1213,7 @@
                 'https://bsc-dataseed1.binance.org/',
                 'https://bsc-dataseed2.binance.org/',
                 'https://bsc-dataseed3.binance.org/',
-                'https://bsc-dataseed4.binance.org/',
-                'https://bsc-dataseed1.defibit.io/',
-                'https://bsc-dataseed2.defibit.io/',
-                'https://bsc-dataseed3.defibit.io/',
-                'https://bsc-dataseed4.defibit.io/'
+                'https://bsc-dataseed4.binance.org/'
             ];
 
             for (const rpc of rpcList) {
@@ -1046,6 +1299,7 @@
             const today = data[data.length - 1].price;
             const todayDate = new Date(data[data.length - 1].date);
 
+            // 30 days
             const date30 = new Date(todayDate);
             date30.setDate(date30.getDate() - 30);
             let price30 = null;
@@ -1055,6 +1309,17 @@
             }
             if (!price30 && data.length > 0) price30 = data[0].price;
 
+            // 60 days
+            const date60 = new Date(todayDate);
+            date60.setDate(date60.getDate() - 60);
+            let price60 = null;
+            for (let i = data.length - 1; i >= 0; i--) {
+                const d = new Date(data[i].date);
+                if (d <= date60) { price60 = data[i].price; break; }
+            }
+            if (!price60 && data.length > 0) price60 = data[0].price;
+
+            // 90 days
             const date90 = new Date(todayDate);
             date90.setDate(date90.getDate() - 90);
             let price90 = null;
@@ -1064,18 +1329,9 @@
             }
             if (!price90 && data.length > 0) price90 = data[0].price;
 
-            const date180 = new Date(todayDate);
-            date180.setDate(date180.getDate() - 180);
-            let price180 = null;
-            for (let i = data.length - 1; i >= 0; i--) {
-                const d = new Date(data[i].date);
-                if (d <= date180) { price180 = data[i].price; break; }
-            }
-            if (!price180 && data.length > 0) price180 = data[0].price;
-
             growth30.innerHTML = formatPercent(price30, today);
             growth90.innerHTML = formatPercent(price90, today);
-            growth180.innerHTML = formatPercent(price180, today);
+            growth180.innerHTML = formatPercent(price60, today);
         }
 
         function formatPercent(oldPrice, newPrice) {
@@ -1094,6 +1350,32 @@
             if (n >= 1e6) return (n / 1e6).toFixed(2) + 'M';
             if (n >= 1e3) return (n / 1e3).toFixed(2) + 'K';
             return n.toFixed(2);
+        }
+
+        // ============================================================
+        // GENERATE 60-DAY DATA
+        // ============================================================
+        function generate60DayData() {
+            const data = [];
+            const days = CONFIG.HISTORY_DAYS;
+            const startPrice = CONFIG.START_PRICE;
+            const endPrice = CONFIG.END_PRICE;
+
+            for (let i = 0; i <= days; i++) {
+                const date = new Date();
+                date.setDate(date.getDate() - (days - i));
+                const progress = i / days;
+                const sinWave = Math.sin(i * 0.08) * 0.0003;
+                const basePrice = startPrice + (endPrice - startPrice) * Math.pow(progress, 0.7);
+                const noise = (Math.random() - 0.5) * 0.00015;
+                const price = Math.max(0.004, basePrice + sinWave + noise);
+                data.push({
+                    date: date.toISOString().split('T')[0],
+                    price: price
+                });
+            }
+            data[data.length - 1].price = endPrice;
+            return data;
         }
 
         // ============================================================
@@ -1158,7 +1440,7 @@
                             ticks: {
                                 color: '#3A4A5A',
                                 font: { size: 10, family: 'Rajdhani, sans-serif', weight: '600' },
-                                maxTicksLimit: data.length > 180 ? 15 : 12,
+                                maxTicksLimit: data.length > 100 ? 15 : 12,
                                 maxRotation: 45,
                                 autoSkip: true
                             }
@@ -1193,27 +1475,96 @@
         }
 
         // ============================================================
-        // SAMPLE DATA
+        // WHITEPAPER MODAL
         // ============================================================
-        function generateSampleData() {
-            const data = [];
-            const startPrice = 0.01;
-            const endPrice = 0.010004326799;
-            const days = 180;
+        function openWhitepaperModal() {
+            whitepaperModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
 
-            for (let i = 0; i <= days; i++) {
-                const date = new Date();
-                date.setDate(date.getDate() - (days - i));
-                const progress = i / days;
-                const basePrice = startPrice + (endPrice - startPrice) * progress;
-                const variation = 1 + (Math.random() - 0.5) * 0.06;
-                data.push({
-                    date: date.toISOString().split('T')[0],
-                    price: Math.max(0.009, basePrice * variation)
+            if (whitepaperContent) {
+                renderWhitepaperContent();
+            } else {
+                whitepaperBody.innerHTML = `
+                    <div style="text-align:center; padding:40px 0; color:#4A5A7A;">
+                        ⏳ Loading whitepaper from blockchain...
+                    </div>
+                `;
+                fetchWhitepaper().then(() => {
+                    renderWhitepaperContent();
+                }).catch(() => {
+                    whitepaperBody.innerHTML = `
+                        <div style="text-align:center; padding:40px 0; color:#FF0055;">
+                            ❌ Could not load whitepaper. Please try again.
+                        </div>
+                    `;
                 });
             }
-            data[data.length - 1].price = endPrice;
-            return data;
+        }
+
+        function renderWhitepaperContent() {
+            if (!whitepaperContent || whitepaperContent.includes('Could not fetch')) {
+                whitepaperBody.innerHTML = `
+                    <div style="text-align:center; padding:40px 0; color:#FF0055;">
+                        ${whitepaperContent || '⚠️ No whitepaper content available.'}
+                    </div>
+                `;
+                return;
+            }
+
+            // Format the whitepaper content with markdown-like styling
+            const formatted = whitepaperContent
+                .split('\n')
+                .map(line => {
+                    line = line.trim();
+                    if (!line) return '<br>';
+                    if (line.startsWith('# ')) {
+                        return `<h3>${line.substring(2)}</h3>`;
+                    }
+                    if (line.startsWith('## ')) {
+                        return `<h4 style="color:#FFB300;font-size:18px;margin:12px 0 4px;">${line.substring(3)}</h4>`;
+                    }
+                    if (line.startsWith('• ') || line.startsWith('- ')) {
+                        return `<li style="list-style:none;margin:2px 0;">${line.substring(2)}</li>`;
+                    }
+                    if (line.match(/^\d+\./)) {
+                        return `<li style="list-style:none;margin:2px 0;">${line}</li>`;
+                    }
+                    return `<p style="margin:4px 0;">${line}</p>`;
+                })
+                .join('');
+
+            whitepaperBody.innerHTML = `
+                <div style="margin-bottom:12px; color:#6A7A9A; font-size:14px;">
+                    📅 Last Updated: ${new Date().toLocaleDateString()}
+                </div>
+                <div style="color:#B0C4DE; font-size:15px; line-height:1.8;">
+                    ${formatted}
+                </div>
+            `;
+        }
+
+        function closeWhitepaperModal() {
+            whitepaperModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function copyWhitepaper() {
+            if (!whitepaperContent) {
+                showToast('⚠️ No whitepaper content to copy', 'error', 2000);
+                return;
+            }
+            navigator.clipboard.writeText(whitepaperContent).then(() => {
+                showToast('✅ Whitepaper copied!', 'success', 2000);
+            }).catch(() => {
+                // Fallback
+                const ta = document.createElement('textarea');
+                ta.value = whitepaperContent;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+                showToast('✅ Whitepaper copied!', 'success', 2000);
+            });
         }
 
         // ============================================================
@@ -1223,46 +1574,44 @@
             statusMsg.textContent = '⏳ LOADING DATA...';
             dataStatus.textContent = 'LOADING';
 
-            const data = await fetchDataFromServer();
+            const serverData = await fetchDataFromServer();
 
-            if (data && data.length > 0) {
-                priceHistory = data;
-                const lastPrice = data[data.length - 1].price;
-                updatePriceDisplay(lastPrice);
+            let dataToUse = null;
 
-                const lastDate = new Date(data[data.length - 1].date);
-                updateTime.textContent = `🕐 UPDATED: ${lastDate.toLocaleDateString()} ${lastDate.toLocaleTimeString()}`;
-
-                const firstDate = new Date(data[0].date);
-                dataRange.textContent = `(${firstDate.toLocaleDateString()} - ${lastDate.toLocaleDateString()})`;
-
-                updateGrowthMetrics(data);
-
-                if (chart) {
-                    updateChart(data);
-                } else {
-                    initChart(data);
-                }
-
-                dataStatus.textContent = `${data.length} DAYS`;
-                statusMsg.textContent = `⚡ DATA FROM BLOCKCHAIN • ${data.length} DAYS RECORDED`;
-                showToast(`✅ Loaded ${data.length} days of price data`, 'success', 2000);
-
-                await fetchLiveStats();
-
+            if (serverData && serverData.length > 0) {
+                dataToUse = serverData;
+                dataStatus.textContent = `${dataToUse.length} DAYS`;
+                statusMsg.textContent = `⚡ DATA FROM SERVER • ${dataToUse.length} DAYS RECORDED`;
+                showToast(`✅ Loaded ${dataToUse.length} days from server`, 'success', 2000);
             } else {
-                const sampleData = generateSampleData();
-                priceHistory = sampleData;
-                updatePriceDisplay(sampleData[sampleData.length - 1].price);
-                updateGrowthMetrics(sampleData);
-                if (chart) {
-                    updateChart(sampleData);
-                } else {
-                    initChart(sampleData);
-                }
-                dataStatus.textContent = 'DEMO';
-                statusMsg.textContent = '⚠️ DEMO DATA • CONNECT TO BLOCKCHAIN FOR LIVE PRICE';
-                showToast('⚠️ Using demo data', 'info', 3000);
+                dataToUse = generate60DayData();
+                dataStatus.textContent = '60 DAYS (DEMO)';
+                statusMsg.textContent = `⚡ 60-DAY DEMO DATA • 0.005 → 0.010004`;
+                showToast('📊 60-day demo data generated', 'info', 2000);
+            }
+
+            priceHistory = dataToUse;
+            const lastPrice = dataToUse[dataToUse.length - 1].price;
+            updatePriceDisplay(lastPrice);
+
+            const lastDate = new Date(dataToUse[dataToUse.length - 1].date);
+            const firstDate = new Date(dataToUse[0].date);
+            updateTime.textContent = `🕐 UPDATED: ${lastDate.toLocaleDateString()} ${lastDate.toLocaleTimeString()}`;
+            dataRange.textContent = `(${firstDate.toLocaleDateString()} - ${lastDate.toLocaleDateString()})`;
+
+            updateGrowthMetrics(dataToUse);
+
+            if (chart) {
+                updateChart(dataToUse);
+            } else {
+                initChart(dataToUse);
+            }
+
+            await fetchLiveStats();
+
+            // Pre-fetch whitepaper
+            if (!whitepaperContent) {
+                fetchWhitepaper().catch(() => {});
             }
         }
 
@@ -1310,6 +1659,21 @@
 
             $('btnRefresh').addEventListener('click', refreshData);
             $('btnFetchLive').addEventListener('click', fetchLiveAndUpdate);
+
+            // Whitepaper
+            $('whitepaperBtn').addEventListener('click', openWhitepaperModal);
+            $('closeModalBtn').addEventListener('click', closeWhitepaperModal);
+            copyWhitepaperBtn.addEventListener('click', copyWhitepaper);
+
+            // Close modal on overlay click
+            whitepaperModal.addEventListener('click', function(e) {
+                if (e.target === this) closeWhitepaperModal();
+            });
+
+            // Close modal with Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') closeWhitepaperModal();
+            });
 
             setInterval(async () => {
                 await loadDashboard();
