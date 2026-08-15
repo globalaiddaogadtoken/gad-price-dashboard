@@ -1569,82 +1569,60 @@
         }
 
         // ============================================================
-        // MAIN LOAD
-        // ============================================================
-        async function loadDashboard() {
-            statusMsg.textContent = '⏳ LOADING DATA...';
-            dataStatus.textContent = 'LOADING';
+// LOAD DASHBOARD (اصلاح‌شده برای تعداد روزها)
+// ============================================================
+async function loadDashboard() {
+    statusMsg.textContent = '⏳ LOADING DATA...';
+    dataStatus.textContent = 'LOADING';
 
-            const serverData = await fetchDataFromServer();
+    const data = await fetchDataFromServer();
 
-            let dataToUse = null;
+    if (data && data.length > 0) {
+        // مرتب‌سازی بر اساس تاریخ
+        data.sort((a, b) => new Date(a.date) - new Date(b.date));
+        
+        priceHistory = data;
+        const lastPrice = data[data.length - 1].price;
+        updatePriceDisplay(lastPrice);
 
-            if (serverData && serverData.length > 0) {
-                dataToUse = serverData;
-                dataStatus.textContent = `${dataToUse.length} DAYS`;
-                statusMsg.textContent = `⚡ DATA FROM SERVER • ${dataToUse.length} DAYS RECORDED`;
-                showToast(`✅ Loaded ${dataToUse.length} days from server`, 'success', 2000);
-            } else {
-                dataToUse = generate60DayData();
-                dataStatus.textContent = '60 DAYS (DEMO)';
-                statusMsg.textContent = `⚡ 60-DAY DEMO DATA • 0.005 → 0.010004`;
-                showToast('📊 60-day demo data generated', 'info', 2000);
-            }
+        const lastDate = new Date(data[data.length - 1].date);
+        const firstDate = new Date(data[0].date);
+        updateTime.textContent = `🕐 UPDATED: ${lastDate.toLocaleDateString()} ${lastDate.toLocaleTimeString()}`;
 
-            priceHistory = dataToUse;
-            const lastPrice = dataToUse[dataToUse.length - 1].price;
-            updatePriceDisplay(lastPrice);
+        // ===== محاسبه تعداد روزهای واقعی =====
+        const totalDays = data.length;
+        dataRange.textContent = `(${firstDate.toLocaleDateString()} - ${lastDate.toLocaleDateString()}) • ${totalDays} DAYS`;
 
-            const lastDate = new Date(dataToUse[dataToUse.length - 1].date);
-            const firstDate = new Date(dataToUse[0].date);
-            updateTime.textContent = `🕐 UPDATED: ${lastDate.toLocaleDateString()} ${lastDate.toLocaleTimeString()}`;
-            dataRange.textContent = `(${firstDate.toLocaleDateString()} - ${lastDate.toLocaleDateString()})`;
+        updateGrowthMetrics(data);
 
-            updateGrowthMetrics(dataToUse);
-
-            if (chart) {
-                updateChart(dataToUse);
-            } else {
-                initChart(dataToUse);
-            }
-
-            await fetchLiveStats();
-
-            // Pre-fetch whitepaper
-            if (!whitepaperContent) {
-                fetchWhitepaper().catch(() => {});
-            }
+        if (chart) {
+            updateChart(data);
+        } else {
+            initChart(data);
         }
 
-        // ============================================================
-        // REFRESH & FETCH LIVE
-        // ============================================================
-        async function refreshData() {
-            showToast('⟳ REFRESHING...', 'info', 1500);
-            await loadDashboard();
-        }
+        dataStatus.textContent = `${totalDays} DAYS`;
+        statusMsg.textContent = `⚡ DATA FROM BLOCKCHAIN • ${totalDays} DAYS RECORDED`;
+        showToast(`✅ Loaded ${totalDays} days of price data`, 'success', 2000);
 
-        async function fetchLiveAndUpdate() {
-            showToast('📡 FETCHING LIVE PRICE...', 'info', 1500);
-            const price = await fetchLivePrice();
-            if (price !== null) {
-                updatePriceDisplay(price);
-                const today = new Date().toISOString().split('T')[0];
-                const lastEntry = priceHistory[priceHistory.length - 1];
-                if (lastEntry && lastEntry.date !== today) {
-                    priceHistory.push({ date: today, price: price });
-                    if (priceHistory.length > 365) {
-                        priceHistory = priceHistory.slice(-365);
-                    }
-                    updateGrowthMetrics(priceHistory);
-                    updateChart(priceHistory);
-                }
-                await fetchLiveStats();
-                showToast(`✅ LIVE PRICE: $${price.toFixed(7)}`, 'success', 2000);
-            } else {
-                showToast('⚠️ COULD NOT FETCH LIVE PRICE', 'error', 2000);
-            }
+        await fetchLiveStats();
+
+    } else {
+        // fallback
+        const sampleData = generateSampleData();
+        priceHistory = sampleData;
+        updatePriceDisplay(sampleData[sampleData.length - 1].price);
+        updateGrowthMetrics(sampleData);
+        if (chart) {
+            updateChart(sampleData);
+        } else {
+            initChart(sampleData);
         }
+        dataStatus.textContent = 'DEMO';
+        statusMsg.textContent = '⚠️ DEMO DATA • CONNECT TO BLOCKCHAIN FOR LIVE PRICE';
+        showToast('⚠️ Using demo data', 'info', 3000);
+    }
+}
 
         // ============================================================
         // EVENT LISTENERS
