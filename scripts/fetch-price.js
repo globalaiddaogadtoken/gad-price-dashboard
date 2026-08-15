@@ -55,7 +55,7 @@ async function updateData() {
         }
     }
 
-    // تاریخ امروز
+    // تاریخ امروز (UTC)
     const today = new Date().toISOString().split('T')[0];
 
     // بررسی اینکه آیا امروز قبلاً ثبت شده
