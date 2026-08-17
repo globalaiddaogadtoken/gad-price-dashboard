@@ -619,7 +619,6 @@
             background: rgba(255, 255, 255, 0.02);
         }
 
-        /* ===== SOCIAL BUTTONS ===== */
         .social-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -694,7 +693,6 @@
             font-size: 20px;
         }
 
-        /* ===== WHITEPAPER MODAL ===== */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -976,7 +974,6 @@
 
     <div id="toast" class="toast hidden"></div>
 
-    <!-- ===== WHITEPAPER MODAL ===== -->
     <div class="modal-overlay" id="whitepaperModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -987,7 +984,6 @@
                 </div>
             </div>
             <div class="modal-body" id="whitepaperBody">
-                <!-- Whitepaper content will be injected here -->
                 <div style="text-align:center; padding:40px 0; color:#4A5A7A;">
                     ⏳ Loading whitepaper...
                 </div>
@@ -995,7 +991,6 @@
         </div>
     </div>
 
-    <!-- ===== MAIN CONTAINER ===== -->
     <div class="container">
 
         <div class="header">
@@ -1064,7 +1059,6 @@
             <canvas id="priceChart"></canvas>
         </div>
 
-        <!-- ===== SOCIAL BUTTONS ===== -->
         <div class="social-grid">
             <button class="social-btn whitepaper" id="whitepaperBtn">
                 <span class="icon">📄</span> Whitepaper
@@ -1083,13 +1077,15 @@
         <div class="btn-group">
             <button id="btnRefresh" class="btn btn-gold">⟳ REFRESH</button>
             <button id="btnFetchLive" class="btn btn-cyan">📡 FETCH LIVE</button>
-            <button id="btnSavePrice" class="btn btn-green">💾 SAVE PRICE</button>
         </div>
 
         <div class="status-msg" id="statusMsg">⚡ DATA FROM BLOCKCHAIN • NO WALLET REQUIRED</div>
 
     </div>
 
+    <!-- ================================================================
+    JAVASCRIPT
+    ================================================================ -->
     <script>
         // ============================================================
         // CONFIGURATION
@@ -1163,7 +1159,7 @@
         }
 
         // ============================================================
-        // FETCH DATA
+        // FETCH DATA FROM SERVER
         // ============================================================
         async function fetchDataFromServer() {
             try {
@@ -1278,17 +1274,56 @@
         }
 
         // ============================================================
-        // UPDATE PRICE
+        // UPDATE PRICE DISPLAY (LIVE - لحظه‌ای)
         // ============================================================
-        function updatePriceDisplay(price) {
-            if (price === null || price === undefined) return;
-            currentPrice = price;
+        async function updatePriceDisplayLive() {
+            try {
+                const price = await fetchLivePrice();
+                if (price !== null) {
+                    const parts = price.toFixed(10).split('.');
+                    priceValue.textContent = parts[0];
+                    priceCents.textContent = '.' + (parts[1] || '0000').padEnd(7, '0').slice(0, 7);
 
-            const parts = price.toFixed(10).split('.');
-            priceValue.textContent = parts[0];
-            priceCents.textContent = '.' + (parts[1] || '0000').padEnd(7, '0').slice(0, 7);
+                    const now = new Date();
+                    updateTime.textContent = `🕐 LIVE: ${now.toLocaleTimeString()}`;
+
+                    if (priceHistory.length > 1) {
+                        const prevPrice = priceHistory[priceHistory.length - 1].price;
+                        if (prevPrice && prevPrice > 0) {
+                            const change = ((price - prevPrice) / prevPrice * 100);
+                            const changeAbs = change.toFixed(2);
+                            if (change > 0) {
+                                priceChange.className = 'price-change positive';
+                                priceChange.textContent = `▲ +${changeAbs}%`;
+                            } else if (change < 0) {
+                                priceChange.className = 'price-change negative';
+                                priceChange.textContent = `▼ ${changeAbs}%`;
+                            } else {
+                                priceChange.className = 'price-change';
+                                priceChange.textContent = '— 0.00%';
+                            }
+                        }
+                    }
+                    return true;
+                } else {
+                    if (priceHistory.length > 0) {
+                        const last = priceHistory[priceHistory.length - 1].price;
+                        const parts = last.toFixed(10).split('.');
+                        priceValue.textContent = parts[0];
+                        priceCents.textContent = '.' + (parts[1] || '0000').padEnd(7, '0').slice(0, 7);
+                        updateTime.textContent = `📅 CACHED: ${new Date(priceHistory[priceHistory.length - 1].date).toLocaleDateString()}`;
+                    }
+                    return false;
+                }
+            } catch (err) {
+                console.error('Live price display error:', err);
+                return false;
+            }
         }
 
+        // ============================================================
+        // UPDATE GROWTH METRICS
+        // ============================================================
         function updateGrowthMetrics(data) {
             if (!data || data.length < 2) {
                 growth30.textContent = '--';
@@ -1300,7 +1335,6 @@
             const today = data[data.length - 1].price;
             const todayDate = new Date(data[data.length - 1].date);
 
-            // 30 days
             const date30 = new Date(todayDate);
             date30.setDate(date30.getDate() - 30);
             let price30 = null;
@@ -1310,7 +1344,6 @@
             }
             if (!price30 && data.length > 0) price30 = data[0].price;
 
-            // 60 days
             const date60 = new Date(todayDate);
             date60.setDate(date60.getDate() - 60);
             let price60 = null;
@@ -1320,7 +1353,6 @@
             }
             if (!price60 && data.length > 0) price60 = data[0].price;
 
-            // 90 days
             const date90 = new Date(todayDate);
             date90.setDate(date90.getDate() - 90);
             let price90 = null;
@@ -1512,7 +1544,6 @@
                 return;
             }
 
-            // Format the whitepaper content with markdown-like styling
             const formatted = whitepaperContent
                 .split('\n')
                 .map(line => {
@@ -1557,7 +1588,6 @@
             navigator.clipboard.writeText(whitepaperContent).then(() => {
                 showToast('✅ Whitepaper copied!', 'success', 2000);
             }).catch(() => {
-                // Fallback
                 const ta = document.createElement('textarea');
                 ta.value = whitepaperContent;
                 document.body.appendChild(ta);
@@ -1569,60 +1599,77 @@
         }
 
         // ============================================================
-// LOAD DASHBOARD (اصلاح‌شده برای تعداد روزها)
-// ============================================================
-async function loadDashboard() {
-    statusMsg.textContent = '⏳ LOADING DATA...';
-    dataStatus.textContent = 'LOADING';
+        // LOAD DASHBOARD (اصلاح‌شده با قیمت لحظه‌ای و تعداد روزها)
+        // ============================================================
+        async function loadDashboard() {
+            statusMsg.textContent = '⏳ LOADING DATA...';
+            dataStatus.textContent = 'LOADING';
 
-    const data = await fetchDataFromServer();
+            const data = await fetchDataFromServer();
 
-    if (data && data.length > 0) {
-        // مرتب‌سازی بر اساس تاریخ
-        data.sort((a, b) => new Date(a.date) - new Date(b.date));
-        
-        priceHistory = data;
-        const lastPrice = data[data.length - 1].price;
-        updatePriceDisplay(lastPrice);
+            if (data && data.length > 0) {
+                data.sort((a, b) => new Date(a.date) - new Date(b.date));
+                priceHistory = data;
 
-        const lastDate = new Date(data[data.length - 1].date);
-        const firstDate = new Date(data[0].date);
-        updateTime.textContent = `🕐 UPDATED: ${lastDate.toLocaleDateString()} ${lastDate.toLocaleTimeString()}`;
+                // ===== نمایش قیمت لحظه‌ای =====
+                await updatePriceDisplayLive();
 
-        // ===== محاسبه تعداد روزهای واقعی =====
-        const totalDays = data.length;
-        dataRange.textContent = `(${firstDate.toLocaleDateString()} - ${lastDate.toLocaleDateString()}) • ${totalDays} DAYS`;
+                const firstDate = new Date(data[0].date);
+                const lastDate = new Date(data[data.length - 1].date);
+                const totalDays = data.length;
 
-        updateGrowthMetrics(data);
+                dataRange.textContent = `(${firstDate.toLocaleDateString()} - ${lastDate.toLocaleDateString()}) • ${totalDays} DAYS`;
 
-        if (chart) {
-            updateChart(data);
-        } else {
-            initChart(data);
+                updateGrowthMetrics(data);
+
+                if (chart) {
+                    updateChart(data);
+                } else {
+                    initChart(data);
+                }
+
+                dataStatus.textContent = `${totalDays} DAYS`;
+                statusMsg.textContent = `⚡ ${totalDays} DAYS RECORDED • LIVE PRICE UPDATED`;
+
+                await fetchLiveStats();
+
+            } else {
+                const sampleData = generate60DayData();
+                priceHistory = sampleData;
+                await updatePriceDisplayLive();
+                updateGrowthMetrics(sampleData);
+                if (chart) {
+                    updateChart(sampleData);
+                } else {
+                    initChart(sampleData);
+                }
+                dataStatus.textContent = 'DEMO';
+                statusMsg.textContent = '⚠️ DEMO DATA • CONNECT TO BLOCKCHAIN FOR LIVE PRICE';
+                showToast('⚠️ Using demo data', 'info', 3000);
+            }
         }
 
-        dataStatus.textContent = `${totalDays} DAYS`;
-        statusMsg.textContent = `⚡ DATA FROM BLOCKCHAIN • ${totalDays} DAYS RECORDED`;
-        showToast(`✅ Loaded ${totalDays} days of price data`, 'success', 2000);
-
-        await fetchLiveStats();
-
-    } else {
-        // fallback
-        const sampleData = generateSampleData();
-        priceHistory = sampleData;
-        updatePriceDisplay(sampleData[sampleData.length - 1].price);
-        updateGrowthMetrics(sampleData);
-        if (chart) {
-            updateChart(sampleData);
-        } else {
-            initChart(sampleData);
+        // ============================================================
+        // REFRESH DATA
+        // ============================================================
+        async function refreshData() {
+            showToast('⟳ REFRESHING...', 'info', 1500);
+            await loadDashboard();
+            showToast('✅ Data refreshed!', 'success', 1500);
         }
-        dataStatus.textContent = 'DEMO';
-        statusMsg.textContent = '⚠️ DEMO DATA • CONNECT TO BLOCKCHAIN FOR LIVE PRICE';
-        showToast('⚠️ Using demo data', 'info', 3000);
-    }
-}
+
+        // ============================================================
+        // FETCH LIVE AND UPDATE
+        // ============================================================
+        async function fetchLiveAndUpdate() {
+            showToast('📡 FETCHING LIVE PRICE...', 'info', 1500);
+            const success = await updatePriceDisplayLive();
+            if (success) {
+                showToast('✅ Live price updated!', 'success', 2000);
+            } else {
+                showToast('⚠️ Could not fetch live price, using cached data', 'info', 2000);
+            }
+        }
 
         // ============================================================
         // EVENT LISTENERS
@@ -1632,7 +1679,10 @@ async function loadDashboard() {
             script.src = 'https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.1/ethers.umd.min.js';
             script.onload = async function() {
                 await loadDashboard();
-                setTimeout(fetchLiveAndUpdate, 2000);
+                // بعد از بارگذاری، قیمت لحظه‌ای رو بگیر
+                setTimeout(async () => {
+                    await updatePriceDisplayLive();
+                }, 3000);
             };
             document.head.appendChild(script);
 
@@ -1644,21 +1694,28 @@ async function loadDashboard() {
             $('closeModalBtn').addEventListener('click', closeWhitepaperModal);
             copyWhitepaperBtn.addEventListener('click', copyWhitepaper);
 
-            // Close modal on overlay click
             whitepaperModal.addEventListener('click', function(e) {
                 if (e.target === this) closeWhitepaperModal();
             });
 
-            // Close modal with Escape key
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') closeWhitepaperModal();
             });
 
+            // به‌روزرسانی خودکار قیمت لحظه‌ای هر 30 ثانیه
+            setInterval(async () => {
+                if (priceHistory.length > 0) {
+                    await updatePriceDisplayLive();
+                }
+            }, 30000);
+
+            // به‌روزرسانی کامل هر 5 دقیقه
             setInterval(async () => {
                 await loadDashboard();
             }, 300000);
 
             console.log('🚀 GAD PRICE DASHBOARD LOADED');
+            console.log('📊 Live price updates every 30 seconds');
         });
     </script>
 
