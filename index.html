@@ -1231,48 +1231,54 @@
         }
 
         // ============================================================
-        // FETCH LIVE STATS
-        // ============================================================
-        async function fetchLiveStats() {
-            const rpcList = [
-                'https://bsc-dataseed.binance.org/',
-                'https://bsc-dataseed1.binance.org/',
-                'https://bsc-dataseed2.binance.org/'
-            ];
+// FETCH LIVE STATS (بدون نیاز به کیف پول)
+// ============================================================
+async function fetchLiveStats() {
+    const rpcList = [
+        'https://bsc-dataseed.binance.org/',
+        'https://bsc-dataseed1.binance.org/',
+        'https://bsc-dataseed2.binance.org/',
+        'https://bsc-dataseed3.binance.org/',
+        'https://bsc-dataseed4.binance.org/'
+    ];
 
-            for (const rpc of rpcList) {
-                try {
-                    const provider = new ethers.JsonRpcProvider(rpc);
-                    const contract = new ethers.Contract(CONFIG.GAD_TOKEN_ADDRESS, GAD_ABI, provider);
+    for (const rpc of rpcList) {
+        try {
+            // استفاده از provider معمولی (بدون signer)
+            const provider = new ethers.JsonRpcProvider(rpc);
+            const contract = new ethers.Contract(CONFIG.GAD_TOKEN_ADDRESS, GAD_ABI, provider);
 
-                    try {
-                        const holders = await contract.holderCount();
-                        holderCount.textContent = formatNumber(holders.toString());
-                    } catch (e) { holderCount.textContent = '--'; }
+            try {
+                const holders = await contract.holderCount();
+                holderCount.textContent = formatNumber(holders.toString());
+            } catch (e) { holderCount.textContent = '--'; }
 
-                    try {
-                        const supply = await contract.getTotalGADSupply();
-                        totalSupply.textContent = formatNumber(ethers.formatUnits(supply, 18));
-                    } catch (e) { totalSupply.textContent = '--'; }
+            try {
+                const supply = await contract.getTotalGADSupply();
+                totalSupply.textContent = formatNumber(ethers.formatUnits(supply, 18));
+            } catch (e) { totalSupply.textContent = '--'; }
 
-                    try {
-                        const cap = await contract.getMarketCap();
-                        marketCap.textContent = formatNumber(ethers.formatUnits(cap, 18));
-                    } catch (e) { marketCap.textContent = '--'; }
+            try {
+                const cap = await contract.getMarketCap();
+                marketCap.textContent = formatNumber(ethers.formatUnits(cap, 18));
+            } catch (e) { marketCap.textContent = '--'; }
 
-                    try {
-                        const circ = await contract.getCirculatingSupply();
-                        circulatingSupply.textContent = formatNumber(ethers.formatUnits(circ, 18));
-                    } catch (e) { circulatingSupply.textContent = '--'; }
+            try {
+                const circ = await contract.getCirculatingSupply();
+                circulatingSupply.textContent = formatNumber(ethers.formatUnits(circ, 18));
+            } catch (e) { circulatingSupply.textContent = '--'; }
 
-                    return true;
-                } catch (err) {
-                    continue;
-                }
-            }
-            return false;
+            console.log('✅ Stats fetched from:', rpc);
+            return true;
+        } catch (err) {
+            console.warn('❌ Stats RPC failed:', rpc, err.message);
+            continue;
         }
+    }
 
+    console.warn('⚠️ Stats: All RPCs failed');
+    return false;
+}
         // ============================================================
         // UPDATE PRICE DISPLAY (LIVE - لحظه‌ای)
         // ============================================================
